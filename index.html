@@ -631,8 +631,16 @@ const statsObserver = new IntersectionObserver((entries) => {
             statsObserver.unobserve(el);
         }
     });
-}, { threshold: 0.5 });
+}, { threshold: 0.1 });
 stats.forEach(s => statsObserver.observe(s));
+setTimeout(() => {
+    stats.forEach(s => {
+        if (!s.dataset.animated) {
+            s.textContent = s.dataset.target + (s.dataset.suffix || '');
+            s.dataset.animated = 'true';
+        }
+    });
+}, 2000);
 
 // Header scroll
 const header = document.getElementById('header');
